@@ -2,6 +2,7 @@ package com.sk.controller;
 
 import com.sk.dao.IndexmenuMapper;
 import com.sk.entity.Indexmenu;
+import com.sun.org.apache.xpath.internal.objects.XString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ public class IndexmenuController {
 
     @Autowired
     private IndexmenuMapper indexmenuMapper;
+    private XString username;
 
     @ResponseBody
     @RequestMapping("/getIndexmenu")
