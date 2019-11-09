@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+
+	<script src="js/jquery1.42.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function () {
+			getEmp();
+			getCase();
+			function getEmp() {
+				var url="getEmp";
+				var args={};
+				$.post(url,args,function (data) {
+					for (var i=0;i<data.length;i++){
+						if (i==0){
+							$("#emp1").append("<a href=\"#\"><img src=\""+data[i].image_url+"\" alt=\"\"></a>\n" +
+									"\t\t\t\t<a href=\"#\"><span>"+data[i].name+"&nbsp&nbsp"+data[i].job+"</span></a><br />\n" +
+									"\t\t\t\t<p>"+data[i].introduce+"</p>\n" +
+									"\t\t\t\t<span id=\"sss\">"+data[i].message+"</span>\n" +
+									"\t\t\t\t<div class=\"more\"><a href=\"fenlei.html\">MORE ></a></div>")
+						}
+						else {
+							$("#emp2").append("\t<li>\n" +
+									"\t\t\t\t\t\t<div>\n" +
+									"\t\t\t\t\t\t\t<a href=\"#\"><img src=\""+data[i].image_url+"\" alt=\"\"></a>\n" +
+									"\t\t\t\t\t\t\t<p><a href=\"#\">"+data[i].name+"  "+data[i].job+"  "+data[i].introduce+"</a></p>\n" +
+									"\t\t\t\t\t\t</div>\n" +
+									"\t\t\t\t\t</li>")
+						}
+					}
+				})
+			}
+			function getCase() {
+                var url="indexCase";
+                var args={};
+                $.post(url,args,function (data) {
+                    for (var i=0;i<data.length;i++){
+                        if (i==2){
+                            $("#case").append("\t<div id='Mo'><a href=\"#\"><img src=\""+data[i].h_p[0]+"\" alt=\"\"></a>\n" +
+                                "\t\t\t\t\t<p class=\"big\"><a href=\"#\">"+data[i].h_type+"</a></p>\n" +
+                                "\t\t\t\t\t<p class=\"small\">"+data[i].qita+"</p>\n" +
+                                "\t\t\t\t</div>")
+                        }
+                        else{
+                            $("#case").append("\t<div><a href=\"#\"><img src=\""+data[i].h_p[0]+"\" alt=\"\"></a>\n" +
+                                "\t\t\t\t\t<p class=\"big\"><a href=\"#\">"+data[i].h_type+"</a></p>\n" +
+                                "\t\t\t\t\t<p class=\"small\">"+data[i].qita+"</p>\n" +
+                                "\t\t\t\t</div>")
+                        }
+
+
+                    }
+                })
+            }
+		})
+	</script>
+</head>
+<body>
+<!-- Top开始 -->
+<div class="top">
+	<div class="top1 w1000">
+		<div class="fl">
+			<a href="index.html"><img src="images/logo.jpg" alt=""></a>
+		</div>
+		<div class="fr">
+			<ul>
+				<li id="chick"><p><a href="index.html">首页</a></p></li>
+				<li><p><a href="about.html">关于</a></p></li>
+				<li><p><a href="fenlei.html">分类</a></p></li>
+				<li><p><a href="anni.html">案例</a></p></li>
+				<li><p><a href="news.html">新闻</a></p></li>
+				<li><p><a href="lianxi.html">联系</a></p></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- Top结束 -->
+
+<!-- banner开始 -->
+<div class="fullSlide">
+	<div class="bd">
+		<ul id="background" >
+			<li _src="url(images/banner1.png)" style="background:center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+			<li _src="url(images/banner2.jpg)" style="background:center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+			<li _src="url(images/banner1.png)" style="background:center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+		</ul>
+	</div>
+	<span class="prev"></span>
+	<span class="next"></span>
+
+</div>
+<script type="text/javascript">
+	/* 控制左右按钮显示 */
+	jQuery(".fullSlide").hover(function(){ jQuery(this).find(".prev,.next").stop(true,true).fadeTo("show",0.5) },function(){ jQuery(this).find(".prev,.next").fadeOut() });
+	/* 调用SuperSlide */
+	jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",  autoPlay:true, autoPage:true, trigger:"click",
+		startFun:function(i){
+			var curLi = jQuery(".fullSlide .bd li").eq(i); /* 当前大图的li */
+			if( !!curLi.attr("_src") ){
+				curLi.css("background-image",curLi.attr("_src")).removeAttr("_src") /* 将_src地址赋予li背景，然后删除_src */
+			}
+		}
+	});
+</script>
+
+<!-- banner结束 -->
+
+<!-- body开始 -->
+<div class="body">
+	<div class="body01">
+		<div class="title">
+			<div class="fl">
+				<p>01<br/>PART</p>
+			</div>
+			<div class="fr">
+				<p>品牌实力<span>BRAND</span></p>
+				<p class="Small">以口碑铸造品牌</p>
+			</div>
+		</div>
+		<div class="body01-a">
+			<div class="body">
+				<img src="images/index02.jpg" alt="">
+			</div>
+			<div class="Center"></div>
+			<div class="foot">
+				<p>成都市格调装饰设计工程有限公司始建于2010年，是专业从事室内装饰、设计、施工暨网上e购为一体的现代化<br />装饰企业。我公司拥有实力雄厚在深多年的施工队伍，自成立以来公司就定位于高档装饰装修设计。<br />其中包括商业空间装修设计、展厅空间装修设计 、写字楼装修设计.....</p>
+				<div class="more"><a href="about.html">MORE ></a></div>
+			</div>
+		</div>
+	</div>
+	<div class="body02">
+		<div class="title">
+			<div class="fl">
+				<p>02<br/>PART</p>
+			</div>
+			<div class="fr">
+				<p>原创设计团队</p>
+				<p class="Small">设计师赋予空间活力</p>
+				<div class="right">
+					<p>DESIGN
+						TEAM</p>
+				</div>
+			</div>
+		</div>
+		<div class="body02-a" id="employee">
+			<div class="fl" id="emp1">
+
+			</div>
+			<div class="fr">
+				<ul id="emp2">
+
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="body03">
+		<div class="title">
+			<div class="fl">
+				<p>03<br/>PART</p>
+			</div>
+			<div class="fr">
+				<p>成功案例<span>SUCCESSFUL CASE</span></p>
+				<p class="Small">业内资深设计专业人的首选</p>
+			</div>
+		</div>
+		<div class="body03-a">
+			<div class="top" id="case">
+
+
+			</div>
+			<div class="foot">
+				<div class="more"><a href="anni.html">MORE ></a></div>
+			</div>
+		</div>
+	</div>
+	<div class="body04">
+		<div class="title">
+			<div class="fl">
+				<p>04<br/>PART</p>
+			</div>
+			<div class="fr">
+				<p>新闻资讯<span>NEWS</span></p>
+				<p class="Small">格调装饰与家居业实时动态</p>
+			</div>
+		</div>
+		<div class="center">
+			<div class="fl">
+				<div class="top">
+					<div class="shang0">
+						<div class="l">
+							<div class="shang"><p id="s">05</p>
+							</div>
+							<p id="x">2015.06</p>
+						</div>
+						<div class="r">
+							<b><p class="max"><a href="#">2016年格调装饰最新发布会</a></p></b>
+							<p class="ss">在国际生态设计奖诞生一周年之际，我们在国际生态设计奖诞生之地——上海举办“生态设计·引领中国暨2016国际生态设计奖启动一周年活动”</p>
+						</div>
+					</div>
+					<div class="zhong">
+						<div class="l">
+							<div class="shang"><p id="s">05</p>
+							</div>
+							<p id="x">2015.06</p>
+						</div>
+						<div class="r">
+							<b><p class="max"><a href="#">2016年格调装饰最新发布会</a></p></b>
+							<p class="ss">在国际生态设计奖诞生一周年之际，我们在国际生态设计奖诞生之地——上海举办“生态设计·引领中国暨2016国际生态设计奖启动一周年活动”</p>
+						</div>
+					</div>
+					<div id="Mo">
+						<div class="l">
+							<div class="shang"><p id="s">05</p>
+							</div>
+							<p id="x">2015.06</p>
+						</div>
+						<div class="r">
+							<b><p class="max"><a href="#">2016年格调装饰最新发布会</a></p></b>
+							<p class="ss">在国际生态设计奖诞生一周年之际，我们在国际生态设计奖诞生之地——上海举办“生态设计·引领中国暨2016国际生态设计奖启动一周年活动”</p>
+						</div>
+					</div>
+				</div>
+				<div class="foot">
+					<div class="more"><a href="news.html">MORE ></a></div>
+				</div>
+			</div>
+			<div class="fr">
+				<a href="#"><img src="images/index11.jpg" alt=""></a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- body结束 -->
+
+<!-- foot开始 -->
+<div class="foot">
+	<div class="foot1 w1000">
+		<div class="fl">
+			<ul>
+				<li id="S"><p><a href="index.html">首页</a></p></li>
+				<li><p><a href="about.html">关于我们</a></p></li>
+				<li><p><a href="fenlei.html">风格分类</a></p></li>
+				<li><p><a href="anni.html">成功案例</a></p></li>
+				<li><p><a href="news.html">新闻资讯</a></p></li>
+				<li id="F"><p><a href="lianxi.html">联系我们</a></p></li>
+			</ul>
+			<p class="lianxi">电话：028-36524858<br />邮箱：254682254@163.com<br />地址：四川格调装饰设计工程有限公司</p>
+			<p class="small">© Huaban 杭州纬聚网络有限公司   |   浙公网安备 33010602001878号</p>
+		</div>
+		<div class="fr">
+			<a href="#"><img src="images/logo_1.jpg" alt=""></a>
+			<img class="R" src="images/erweima.jpg" alt="">
+		</div>
+	</div>
+</div>
+<!-- foot结束 -->
+</body>
+</html>

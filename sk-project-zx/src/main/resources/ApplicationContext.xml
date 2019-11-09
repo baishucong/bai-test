@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <bean  id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+    </bean>
+    <mybatis-spring:scan base-package="com.sk.dao"></mybatis-spring:scan>
+
+    <!--这是mongo基本信息-->
+    <mongo:mongo-client id="mongoClient" host="47.96.234.28" port="27017"/>
+    <mongo:db-factory dbname="skdb" mongo-ref="mongoClient"/>
+
+    <bean id="mappingContext"
+          class="org.springframework.data.mongodb.core.mapping.MongoMappingContext" />
+
+    <bean id="defaultMongoTypeMapper"
+          class="org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper">
+        <constructor-arg name="typeKey"><null/></constructor-arg>
+    </bean>
+
+    <bean id="mappingMongoConverter"
+          class="org.springframework.data.mongodb.core.convert.MappingMongoConverter">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+        <constructor-arg name="mappingContext" ref="mappingContext" />
+        <property name="typeMapper" ref="defaultMongoTypeMapper" />
+    </bean>
+
+    <!--引入mongotemplate-->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+        <constructor-arg name="mongoConverter" ref="mappingMongoConverter" />
+    </bean>
+</beans>
